@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.neenbedankt.android-apt'
 
 buildscript {
   ext.kotlin_version = '1.0.4'
@@ -23,6 +24,7 @@ android {
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    buildConfigField 'String', 'SERVER_URL', '"https://api.themoviedb.org/3/"'
   }
   buildTypes {
     release {
@@ -43,4 +45,14 @@ dependencies {
   compile 'com.android.support:appcompat-v7:24.2.1'
   testCompile 'junit:junit:4.12'
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  apt 'com.google.dagger:dagger-compiler:2.7'
+  compile 'com.google.dagger:dagger:2.7'
+  provided 'javax.annotation:jsr250-api:1.0'
+
+  compile 'com.google.code.gson:gson:2.6.2'
+  compile 'com.squareup.retrofit2:retrofit:2.1.0'
+  compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+  compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+  compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 }
+
