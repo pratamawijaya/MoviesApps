@@ -1,7 +1,8 @@
-package pratamawijaya.moviesinfokotlin
+package pratamawijaya.moviesinfokotlin.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import pratamawijaya.moviesinfokotlin.R
 
 class MainActivity : AppCompatActivity() {
 
