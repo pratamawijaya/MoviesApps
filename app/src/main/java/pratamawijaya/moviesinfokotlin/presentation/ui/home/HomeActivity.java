@@ -1,10 +1,10 @@
-package pratamawijaya.moviesinfokotlin.presentation;
+package pratamawijaya.moviesinfokotlin.presentation.ui.home;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import pratamawijaya.moviesinfokotlin.R;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
