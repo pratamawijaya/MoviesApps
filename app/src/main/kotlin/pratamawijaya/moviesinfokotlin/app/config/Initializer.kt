@@ -5,6 +5,6 @@ package pratamawijaya.moviesinfokotlin.app.config
  * Date : Oct - 10/11/16
  * Project Name : MoviesInfoKotlin
  */
-interface Initializer {
+open interface Initializer {
   fun initialize()
 }

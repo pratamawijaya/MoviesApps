@@ -2,6 +2,8 @@ package pratamawijaya.moviesinfokotlin.app
 
 import android.app.Application
 import pratamawijaya.moviesinfokotlin.data.network.ServicesDependencies
+import pratamawijaya.moviesinfokotlin.domain.executor.PostExecutionThread
+import pratamawijaya.moviesinfokotlin.domain.executor.ThreadExecutor
 
 /**
  * Created by Pratama Nur Wijaya
@@ -10,5 +12,9 @@ import pratamawijaya.moviesinfokotlin.data.network.ServicesDependencies
  */
 interface AppDependencies : ServicesDependencies {
   fun application(): Application
+
+  fun threadExecutor(): ThreadExecutor
+
+  fun postExecutionThread(): PostExecutionThread
 
 }
