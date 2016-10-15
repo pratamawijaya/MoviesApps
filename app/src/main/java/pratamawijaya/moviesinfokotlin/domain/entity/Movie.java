@@ -25,6 +25,9 @@ public class Movie {
   private Boolean video;
   private Double voteAverage;
 
+  public Movie() {
+  }
+
   public Movie(Integer id) {
     this.id = id;
   }
