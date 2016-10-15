@@ -44,6 +44,7 @@ public class MovieRepositoryImpl implements MoviesRepository {
   }
 
   @Override public Observable<List<Movie>> getPopularMovies(boolean isUpdate) {
+    // TODO: 10/15/16 set cache providers
     return movieServices.getPopularMovies(BuildConfig.THEMOVIEDBKEY)
         .flatMap(popularMoviesResponse -> Observable.just(popularMoviesResponse.getResults()))
         .map(this.movieModelMapper::transform);

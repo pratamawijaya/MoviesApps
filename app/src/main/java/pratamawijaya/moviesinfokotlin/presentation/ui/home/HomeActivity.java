@@ -41,6 +41,7 @@ public class HomeActivity extends BaseActivity
   }
 
   private void setupRecylerView() {
+    // TODO: 10/15/16 setup data to recyclerview
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     swipeRefreshLayout.setOnRefreshListener(this);
   }

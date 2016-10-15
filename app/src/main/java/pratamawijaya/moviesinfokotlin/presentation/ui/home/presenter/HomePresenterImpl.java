@@ -33,6 +33,7 @@ public class HomePresenterImpl extends BasePresenter<HomeContract.View> implemen
   @Override public void detachView() {
     super.detachView();
     getNowPlayingMovies.unsubscribe();
+    getPopularMovies.unsubscribe();
   }
 
   @Override public void loadItemHome(boolean isUpdate) {

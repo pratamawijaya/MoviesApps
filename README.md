@@ -1,13 +1,13 @@
 # Example Functional apps using kotlin
 
 # Architecture
-use clean architecture
+clean architecture
 
 # Data
 Data from themoviedb
 
 # Todo
-- [ ] setup dependency
+- [x] setup dependency
 - [ ] now playing
 - [ ] list popular movies
 - [ ] detail movie
