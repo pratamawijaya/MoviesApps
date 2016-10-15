@@ -1,4 +1,4 @@
-package pratamawijaya.moviesinfokotlin.presentation.dependencyinjection.scope;
+package pratamawijaya.moviesinfokotlin.presentation.di.scope;
 
 import javax.inject.Scope;
 

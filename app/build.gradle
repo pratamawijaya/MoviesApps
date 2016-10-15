@@ -2,6 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: "build-time-tracker"
 apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'me.tatarka.retrolambda'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def apiKey = properties.getProperty('apiKey')
 
 buildtimetracker {
   reporters {
@@ -36,6 +41,7 @@ android {
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     buildConfigField 'String', 'SERVER_URL', '"https://api.themoviedb.org/3/"'
+    buildConfigField 'String', 'THEMOVIEDBKEY', "$apiKey"
   }
   buildTypes {
     release {
@@ -43,17 +49,22 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  dataBinding {
+    enabled = true
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
+  compile fileTree(include: ['*.jar'], dir: 'libs')
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-
-
-
   compile 'com.android.support:appcompat-v7:24.2.1'
+  compile 'com.android.support:design:24.2.1'
   compile 'com.google.dagger:dagger:2.7'
   compile 'com.google.code.gson:gson:2.6.2'
   compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -67,10 +78,12 @@ dependencies {
   compile 'io.reactivex:rxjava:1.1.6'
   compile 'com.google.firebase:firebase-core:9.6.1'
   compile 'com.google.firebase:firebase-crash:9.6.1'
+  compile 'com.jakewharton:butterknife:8.4.0'
+  compile 'com.hannesdorfmann:adapterdelegates3:3.0.0'
   testCompile 'junit:junit:4.12'
   apt 'com.google.dagger:dagger-compiler:2.7'
+  apt 'com.jakewharton:butterknife-compiler:8.4.0'
   provided 'javax.annotation:jsr250-api:1.0'
 }
-
 
 apply plugin: 'com.google.gms.google-services'
