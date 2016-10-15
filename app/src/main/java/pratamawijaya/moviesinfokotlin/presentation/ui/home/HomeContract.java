@@ -19,5 +19,7 @@ public interface HomeContract {
     void showMessage(String msg);
 
     void setNowPlayingMovieData(List<Movie> movies);
+
+    void setPopularMovieData(List<Movie> movies);
   }
 }

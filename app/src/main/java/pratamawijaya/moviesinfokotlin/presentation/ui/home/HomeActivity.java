@@ -73,6 +73,12 @@ public class HomeActivity extends BaseActivity
     }
   }
 
+  @Override public void setPopularMovieData(List<Movie> movies) {
+    for (Movie data : movies) {
+      Timber.d("setPopularMovieData() :  %s", data.getTitle());
+    }
+  }
+
   @Override public void onRefresh() {
     // TODO: 10/15/16 handle onRefresh
   }

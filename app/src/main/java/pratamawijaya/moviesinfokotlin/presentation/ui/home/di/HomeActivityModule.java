@@ -6,6 +6,7 @@ import dagger.Provides;
 import pratamawijaya.moviesinfokotlin.data.feature.movie.MovieRepositoryImpl;
 import pratamawijaya.moviesinfokotlin.domain.interactor.UseCase;
 import pratamawijaya.moviesinfokotlin.domain.interactor.movies.GetNowPlayingMovies;
+import pratamawijaya.moviesinfokotlin.domain.interactor.movies.GetPopularMovies;
 import pratamawijaya.moviesinfokotlin.domain.repository.MoviesRepository;
 import pratamawijaya.moviesinfokotlin.presentation.base.ActivityModule;
 import pratamawijaya.moviesinfokotlin.presentation.di.scope.ActivityScope;
@@ -31,5 +32,9 @@ import pratamawijaya.moviesinfokotlin.presentation.di.scope.ActivityScope;
 
   @Provides UseCase provideNowPlayingUseCase(GetNowPlayingMovies getNowPlayingMovies) {
     return getNowPlayingMovies;
+  }
+
+  @Provides UseCase providePopulalUseCase(GetPopularMovies getPopularMovies) {
+    return getPopularMovies;
   }
 }

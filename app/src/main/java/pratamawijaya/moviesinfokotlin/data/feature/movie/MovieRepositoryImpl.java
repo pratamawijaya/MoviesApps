@@ -42,4 +42,10 @@ public class MovieRepositoryImpl implements MoviesRepository {
               }
             }), new EvictProvider(isUpdate)).map(this.movieModelMapper::transform);
   }
+
+  @Override public Observable<List<Movie>> getPopularMovies(boolean isUpdate) {
+    return movieServices.getPopularMovies(BuildConfig.THEMOVIEDBKEY)
+        .flatMap(popularMoviesResponse -> Observable.just(popularMoviesResponse.getResults()))
+        .map(this.movieModelMapper::transform);
+  }
 }

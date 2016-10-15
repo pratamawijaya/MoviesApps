@@ -12,4 +12,5 @@ import rx.Observable;
 
 public interface MoviesRepository {
   Observable<List<Movie>> getNowPlayingMovies(final boolean isUpdate);
+  Observable<List<Movie>> getPopularMovies(final boolean isUpdate);
 }

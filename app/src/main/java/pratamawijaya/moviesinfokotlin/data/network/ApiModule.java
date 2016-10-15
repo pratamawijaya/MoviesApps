@@ -34,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
   }
 
   @Provides @Singleton @NonNull Gson providesGson() {
-    Gson gson = new GsonBuilder().create();
+    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     return gson;
   }
 
