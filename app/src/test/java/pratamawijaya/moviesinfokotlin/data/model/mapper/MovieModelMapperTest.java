@@ -5,11 +5,12 @@ import java.util.List;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pratamawijaya.moviesinfokotlin.data.model.MovieModel;
 import pratamawijaya.moviesinfokotlin.domain.entity.Movie;
+
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Pratama Nur Wijaya
@@ -29,8 +30,8 @@ public class MovieModelMapperTest {
   @Test public void testMovieTransform() throws Exception {
     MovieModel movieModel = createMovie();
     Movie movie = movieModelMapper.transform(movieModel);
-    Assert.assertThat(movie.getTitle(), Matchers.is(TITLE));
-    Assert.assertThat(movie.getAdult(), Matchers.is(ADULT));
+    assertThat(movie.getTitle(), Matchers.is(TITLE));
+    assertThat(movie.getAdult(), Matchers.is(ADULT));
   }
 
   @Test public void testMoviesListTransform() throws Exception {

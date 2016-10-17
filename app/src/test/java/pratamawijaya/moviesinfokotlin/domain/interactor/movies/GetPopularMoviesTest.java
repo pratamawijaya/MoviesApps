@@ -3,12 +3,12 @@ package pratamawijaya.moviesinfokotlin.domain.interactor.movies;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import pratamawijaya.moviesinfokotlin.domain.executor.PostExecutionThread;
 import pratamawijaya.moviesinfokotlin.domain.executor.ThreadExecutor;
 import pratamawijaya.moviesinfokotlin.domain.repository.MoviesRepository;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
@@ -33,7 +33,7 @@ public class GetPopularMoviesTest {
   @Test public void testGetPopularMoviesUseCase() throws Exception {
     getPopularMovies.buildObservableUseCase();
 
-    Mockito.verify(moviesRepository).getPopularMovies(false);
+    verify(moviesRepository).getPopularMovies(false);
     verifyNoMoreInteractions(moviesRepository);
     verifyZeroInteractions(threadExecutor);
     verifyZeroInteractions(postExecutionThread);
