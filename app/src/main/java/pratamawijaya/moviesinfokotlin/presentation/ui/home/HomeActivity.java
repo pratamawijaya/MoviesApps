@@ -9,8 +9,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import easymvp.annotation.ActivityView;
+import easymvp.annotation.Presenter;
 import java.util.List;
-import javax.inject.Inject;
 import pratamawijaya.moviesinfokotlin.R;
 import pratamawijaya.moviesinfokotlin.app.AppComponent;
 import pratamawijaya.moviesinfokotlin.domain.entity.Movie;
@@ -20,24 +21,31 @@ import pratamawijaya.moviesinfokotlin.presentation.ui.home.di.HomeActivityModule
 import pratamawijaya.moviesinfokotlin.presentation.ui.home.presenter.HomePresenterImpl;
 import timber.log.Timber;
 
+@ActivityView(layout = R.layout.activity_main, presenter = HomePresenterImpl.class)
 public class HomeActivity extends BaseActivity
-    implements HomeContract.View, SwipeRefreshLayout.OnRefreshListener {
+    implements HomeView, SwipeRefreshLayout.OnRefreshListener {
 
   @BindView(R.id.refreshLayout) SwipeRefreshLayout swipeRefreshLayout;
   @BindView(R.id.recyclerView) RecyclerView recyclerView;
   @BindView(R.id.loadingView) ProgressBar loadingView;
 
-  @Inject HomePresenterImpl presenter;
+  @Presenter HomePresenterImpl presenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
-
-    presenter.attachView(this);
-    presenter.loadItemHome(false);
-
     setupRecylerView();
+
+    presenter.loadItemHome(true);
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
+    // Now presenter is injected.
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
   }
 
   private void setupRecylerView() {

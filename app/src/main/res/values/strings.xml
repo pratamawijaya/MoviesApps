@@ -1,3 +1,4 @@
 <resources>
-  <string name="app_name">MoviesInfoKotlin</string>
+  <string name="app_name">Movies Info</string>
+  <string name="network_error_message">Network is not available. Please check your network again!</string>
 </resources>

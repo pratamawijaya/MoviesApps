@@ -1,13 +1,16 @@
 package pratamawijaya.moviesinfokotlin.presentation.ui.home.presenter;
 
+import easymvp.AbstractPresenter;
 import java.util.List;
 import javax.inject.Inject;
 import pratamawijaya.moviesinfokotlin.domain.entity.Movie;
+import pratamawijaya.moviesinfokotlin.domain.exception.DefaultErrorBundle;
+import pratamawijaya.moviesinfokotlin.domain.exception.ErrorBundle;
 import pratamawijaya.moviesinfokotlin.domain.interactor.DefaultSubscriber;
 import pratamawijaya.moviesinfokotlin.domain.interactor.movies.GetNowPlayingMovies;
 import pratamawijaya.moviesinfokotlin.domain.interactor.movies.GetPopularMovies;
-import pratamawijaya.moviesinfokotlin.presentation.base.BasePresenter;
-import pratamawijaya.moviesinfokotlin.presentation.ui.home.HomeContract;
+import pratamawijaya.moviesinfokotlin.presentation.exception.ErrorMessageFactory;
+import pratamawijaya.moviesinfokotlin.presentation.ui.home.HomeView;
 import timber.log.Timber;
 
 /**
@@ -16,29 +19,21 @@ import timber.log.Timber;
  * Project Name : MoviesInfoKotlin
  */
 
-public class HomePresenterImpl extends BasePresenter<HomeContract.View> implements HomePresenter {
+public class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePresenter {
+
   private final GetNowPlayingMovies getNowPlayingMovies;
   private final GetPopularMovies getPopularMovies;
+  private final ErrorMessageFactory errorMessageFactory;
 
   @Inject public HomePresenterImpl(GetNowPlayingMovies getNowPlayingMovies,
-      GetPopularMovies getPopularMovies) {
+      GetPopularMovies getPopularMovies, ErrorMessageFactory errorMessageFactory) {
     this.getNowPlayingMovies = getNowPlayingMovies;
     this.getPopularMovies = getPopularMovies;
-  }
-
-  @Override public void attachView(HomeContract.View mvpView) {
-    super.attachView(mvpView);
-  }
-
-  @Override public void detachView() {
-    super.detachView();
-    getNowPlayingMovies.unsubscribe();
-    getPopularMovies.unsubscribe();
+    this.errorMessageFactory = errorMessageFactory;
   }
 
   @Override public void loadItemHome(boolean isUpdate) {
-    checkViewAttached();
-    getMvpView().showLoading();
+    getView().showLoading();
 
     getNowPlayingMovies.setUpdate(isUpdate);
     getNowPlayingMovies.execute(new NowPlayingMoviesSubscriber());
@@ -47,28 +42,35 @@ public class HomePresenterImpl extends BasePresenter<HomeContract.View> implemen
     getPopularMovies.execute(new PopularMovieSubscriber());
   }
 
+  @Override public void showError(Throwable throwable) {
+    showErrorMessage(new DefaultErrorBundle(throwable));
+  }
+
+  @Override public void showErrorMessage(ErrorBundle errorBundle) {
+    String errorMessage = errorMessageFactory.create(errorBundle.getException());
+  }
+
   private final class NowPlayingMoviesSubscriber extends DefaultSubscriber<List<Movie>> {
     @Override public void onError(Throwable e) {
       super.onError(e);
-      getMvpView().hideLoading();
+      getView().hideLoading();
       Timber.e("onError() :  %s", e.getLocalizedMessage());
+      showError(e);
     }
 
     @Override public void onCompleted() {
       super.onCompleted();
-      getMvpView().hideLoading();
+      getView().hideLoading();
     }
 
     @Override public void onNext(List<Movie> movies) {
       super.onNext(movies);
-      getMvpView().setNowPlayingMovieData(movies);
     }
   }
 
   private final class PopularMovieSubscriber extends DefaultSubscriber<List<Movie>> {
     @Override public void onNext(List<Movie> movies) {
       super.onNext(movies);
-      getMvpView().setPopularMovieData(movies);
     }
 
     @Override public void onCompleted() {
@@ -77,6 +79,7 @@ public class HomePresenterImpl extends BasePresenter<HomeContract.View> implemen
 
     @Override public void onError(Throwable e) {
       super.onError(e);
+      showError(e);
       Timber.e("onError() :  %s", e.getLocalizedMessage());
     }
   }
